@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useSelector } from "react-redux";
 import ReactQuill, { Quill } from "react-quill";
 import { useEffect, useState } from "react";
+import { savePageData } from "../../../features/db/firestore";
 import EditorToolbar, { formats, modules } from "../../editor/EditorToolbar";
 import QuillResizeImage from "quill-resize-image";
 import "../../editor/styles.css";
@@ -20,6 +21,7 @@ Quill.register("modules/resize", QuillResizeImage);
 
 function PageForm() {
   const weatherData = useSelector((state) => state.data.weather);
+  const userData = useSelector((state) => state.data.user);
   // console.log(weatherData);
   const [editorContent, setEditorContent] = useState("");
   const {
@@ -43,8 +45,14 @@ function PageForm() {
   }, [weatherData.city, weatherData.country, setValue]);
 
   const onSubmit = async (data) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log(data);
+    try{
+      const res = await savePageData(userData.user.uid, {...data, id: Date.now()});
+      console.log(res)
+    }
+    catch(error){
+      console.log(error)
+    }
+
   };
 
   const handleEditorChange = (value) => {
