@@ -1,4 +1,4 @@
-import { doc, getDoc, updateDoc, arrayUnion, setDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc, arrayUnion, arrayRemove, setDoc } from "firebase/firestore";
 import { db } from "../auth/firebase";
 
 export const getPageData = async (userId) => {
@@ -32,6 +32,19 @@ export const savePageData = async (userId, pageObj) => {
         catch(error){
             console.log(error)
             throw new Error(error.message)
+        }
+    }
+}
+
+export const removePageData = async (userId, pageId) => {
+    if(userId){
+        try{
+            const docsRef = doc(db, 'thememoriesbook', userId);
+            await updateDoc(docsRef, {pages: arrayRemove(pageId)});
+        }
+        catch(error){
+            console.log(error)
+            throw new Error("Could not write data to db")
         }
     }
 }
