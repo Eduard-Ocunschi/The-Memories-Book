@@ -1,0 +1,105 @@
+import { useForm } from "react-hook-form";
+import styles from "./PageForm.module.css";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useSelector } from "react-redux";
+import ReactQuill, { Quill } from "react-quill";
+import { useEffect, useState } from "react";
+import EditorToolbar, { formats, modules } from "../../editor/EditorToolbar";
+import QuillResizeImage from "quill-resize-image";
+import "../../editor/styles.css";
+import "react-quill/dist/quill.snow.css";
+
+const schema = z.object({
+  title: z.string(),
+  place: z.string(),
+  date: z.string(),
+  poveste: z.string(),
+});
+Quill.register("modules/resize", QuillResizeImage);
+
+function PageForm() {
+  const weatherData = useSelector((state) => state.data.weather);
+  // console.log(weatherData);
+  const [editorContent, setEditorContent] = useState("");
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { isSubmitting },
+  } = useForm({
+    defaultValues: {
+      place: `${weatherData.city}, ${weatherData.country}`,
+    },
+    resolver: zodResolver(schema),
+  });
+
+  useEffect(() => {
+    register("poveste", { required: false });
+  }, [register]);
+
+  useEffect(() => {
+    setValue("place", `${weatherData.city}, ${weatherData.country}`);
+  }, [weatherData.city, weatherData.country, setValue]);
+
+  const onSubmit = async (data) => {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    console.log(data);
+  };
+
+  const handleEditorChange = (value) => {
+    setEditorContent(value);
+    setValue("poveste", value, { shouldValidate: true });
+  };
+
+  return (
+    <>
+      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+        <div className={styles.input_container}>
+          <label htmlFor="title">Title</label>
+          <input {...register("title")} type="text" placeholder="Title" />
+        </div>
+        <div className={styles.input_container}>
+          <label htmlFor="place">Place</label>
+          <input
+            {...register("place")}
+            type="text"
+            placeholder="Place"
+            value={`${weatherData.city}, ${weatherData.country}`}
+          />
+        </div>
+        <div className={styles.input_container}>
+          <label htmlFor="date">Date</label>
+          <input {...register("date")} type="date" placeholder="Date" />
+        </div>
+        <div className="text-editor">
+          <EditorToolbar />
+          <ReactQuill
+            theme="snow"
+            value={editorContent}
+            onChange={handleEditorChange}
+            placeholder="Write something awesome..."
+            modules={{
+              ...modules,
+              resize: {},
+            }}
+            formats={[...formats, "image"]}
+          />
+        </div>
+
+        <div className={styles.container_button}>
+          <button disabled={isSubmitting}>
+            {isSubmitting ? "Submiting..." : "Submit"}
+          </button>
+          <button>Magic Button</button>
+        </div>
+      </form>
+      <div
+        className="ql-editor"
+        dangerouslySetInnerHTML={{ __html: editorContent }}
+      />
+    </>
+  );
+}
+
+export default PageForm;
