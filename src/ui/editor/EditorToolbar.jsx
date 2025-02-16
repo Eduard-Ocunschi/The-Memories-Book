@@ -1,4 +1,6 @@
 import { Quill } from "react-quill";
+import { MdPhoto } from "react-icons/md";
+import "./stylesEditor.css";
 
 // Custom Undo button icon component for Quill editor. You can import it directly
 // from 'quill/assets/icons/undo.svg' but I found that a number of loaders do not
@@ -37,6 +39,28 @@ const Size = Quill.import("formats/size");
 Size.whitelist = ["extra-small", "small", "medium", "large"];
 Quill.register(Size, true);
 
+function imageHandler() {
+  const tooltip = this.quill.theme.tooltip;
+  const originalSave = tooltip.save;
+  const originalHide = tooltip.hide;
+
+  tooltip.save = function () {
+    const range = this.quill.getSelection(true);
+    const value = this.textbox.value;
+    if (value) {
+      this.quill.insertEmbed(range.index, "image", value, "user");
+    }
+  };
+  // Called on hide and save.
+  tooltip.hide = function () {
+    tooltip.save = originalSave;
+    tooltip.hide = originalHide;
+    tooltip.hide();
+  };
+  tooltip.edit("image");
+  tooltip.textbox.placeholder = "Embed URL";
+}
+
 // Add fonts to whitelist and register them
 const Font = Quill.import("formats/font");
 Font.whitelist = [
@@ -57,6 +81,7 @@ export const modules = {
     handlers: {
       undo: undoChange,
       redo: redoChange,
+      imageHandler: imageHandler,
     },
   },
   history: {
@@ -77,13 +102,12 @@ export const formats = [
   "align",
   "strike",
   "script",
-  "blockquote",
   "background",
+  "blockquote",
   "list",
   "bullet",
   "indent",
   "link",
-  "image",
   "color",
   "code-block",
 ];
@@ -128,7 +152,6 @@ export const EditorToolbar = () => (
       <button className="ql-script" value="super" />
       <button className="ql-script" value="sub" />
       <button className="ql-blockquote" />
-      <button className="ql-direction" />
     </span>
     <span className="ql-formats">
       <select className="ql-align" />
@@ -137,11 +160,8 @@ export const EditorToolbar = () => (
     </span>
     <span className="ql-formats">
       <button className="ql-link" />
-      <button className="ql-image" />
-      <button className="ql-video" />
     </span>
     <span className="ql-formats">
-      <button className="ql-formula" />
       <button className="ql-code-block" />
       <button className="ql-clean" />
     </span>
@@ -151,6 +171,9 @@ export const EditorToolbar = () => (
       </button>
       <button className="ql-redo">
         <CustomRedo />
+      </button>
+      <button className="ql-imageHandler">
+        <MdPhoto className="ql-imageHandler" />
       </button>
     </span>
   </div>

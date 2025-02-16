@@ -1,0 +1,47 @@
+.text-editor {
+  background-color: white;
+  color: black;
+}
+.quill .ql-container {
+  border: none !important;
+}
+.quill .ql-container .ql-editor {
+  height: 40rem;
+
+  margin-top: 2rem;
+  min-width: 400px;
+  max-width: 535px;
+}
+.ql-toolbar {
+  display: felx !important;
+  border: none !important;
+  text-align: center;
+  /* border: 2px solid var(--color-dark--1) !important;
+  border-radius: 2% 3% 2% 3% / 7% 49% 13% 28%; */
+}
+
+.ql-picker-label {
+  text-align: start;
+}
+.ql-tooltip.ql-editing {
+  left: 3rem !important;
+}
+
+.ql-font-arial {
+  font-family: Arial, sans-serif;
+}
+.ql-font-comic-sans {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+.ql-font-courier-new {
+  font-family: "Courier New", Courier, monospace;
+}
+.ql-font-georgia {
+  font-family: Georgia, serif;
+}
+.ql-font-helvetica {
+  font-family: Helvetica, sans-serif;
+}
+.ql-font-lucida {
+  font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
+}

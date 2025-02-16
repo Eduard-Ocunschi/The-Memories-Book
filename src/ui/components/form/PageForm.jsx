@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { savePageData } from "../../../features/db/firestore";
 import EditorToolbar, { formats, modules } from "../../editor/EditorToolbar";
 import QuillResizeImage from "quill-resize-image";
-import "../../editor/styles.css";
+import "../../editor/stylesEditor.css";
 import "react-quill/dist/quill.snow.css";
 
 const schema = z.object({
@@ -45,14 +45,16 @@ function PageForm() {
   }, [weatherData.city, weatherData.country, setValue]);
 
   const onSubmit = async (data) => {
-    try{
-      const res = await savePageData(userData.user.uid, {...data, id: Date.now()});
-      console.log(res)
+    console.log(data);
+    try {
+      const res = await savePageData(userData.user.uid, {
+        ...data,
+        id: Date.now(),
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
     }
-    catch(error){
-      console.log(error)
-    }
-
   };
 
   const handleEditorChange = (value) => {
@@ -63,30 +65,36 @@ function PageForm() {
   return (
     <>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <div className={styles.input_container}>
+        <div className={styles.input_container_title}>
           <label htmlFor="title">Title</label>
-          <input {...register("title")} type="text" placeholder="Title" />
-        </div>
-        <div className={styles.input_container}>
-          <label htmlFor="place">Place</label>
           <input
-            {...register("place")}
+            {...register("title")}
             type="text"
-            placeholder="Place"
-            value={`${weatherData.city}, ${weatherData.country}`}
+            placeholder="Once Upon a Time..."
           />
         </div>
-        <div className={styles.input_container}>
-          <label htmlFor="date">Date</label>
-          <input {...register("date")} type="date" placeholder="Date" />
+        <div className={styles.place_and_date}>
+          <div className={styles.input_container}>
+            <label htmlFor="place">Place:</label>
+            <input
+              {...register("place")}
+              type="text"
+              placeholder="Place"
+              value={`${weatherData.city}, ${weatherData.country}`}
+            />
+          </div>
+          <div className={styles.input_container}>
+            <label htmlFor="date">Date:</label>
+            <input {...register("date")} type="date" placeholder="Date" />
+          </div>
         </div>
-        <div className="text-editor">
+        <div className={styles.text_editor}>
           <EditorToolbar />
           <ReactQuill
             theme="snow"
             value={editorContent}
             onChange={handleEditorChange}
-            placeholder="Write something awesome..."
+            placeholder="There was a..."
             modules={{
               ...modules,
               resize: {},
@@ -96,16 +104,15 @@ function PageForm() {
         </div>
 
         <div className={styles.container_button}>
-          <button disabled={isSubmitting}>
+          <button disabled={isSubmitting} className={styles.submit_btn}>
             {isSubmitting ? "Submiting..." : "Submit"}
           </button>
-          <button>Magic Button</button>
         </div>
       </form>
-      <div
+      {/* <div
         className="ql-editor"
         dangerouslySetInnerHTML={{ __html: editorContent }}
-      />
+      /> */}
     </>
   );
 }

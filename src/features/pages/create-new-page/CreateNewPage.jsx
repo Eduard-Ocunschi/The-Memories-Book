@@ -21,24 +21,23 @@ function CreateNewPage() {
   const weatherSliceData = useSelector((state) => state.data.weather);
 
   return (
-    <div className="app1">
-      <div className={styles.container}>
-        <div className={styles.container_left}>
-          <PageForm />
-        </div>
-        <div className={styles.container_right}>
-          <div className={styles.container_right_weather}>
-            <p>
-              Location:{" "}
-              {`${weatherSliceData.city}, ${weatherSliceData.country}`}
-            </p>
+    <div className={styles.container}>
+      <div className={styles.container_left}>
+        <PageForm />
+      </div>
+      <div className={styles.container_right}>
+        <div className={styles.container_right_weather}>
+          <p>
+            Location: {`${weatherSliceData.city}, ${weatherSliceData.country}`}
+          </p>
 
-            <p>
-              {weatherSliceData.description.charAt(0).toUpperCase() +
-                weatherSliceData.description.slice(1)}
-            </p>
-            <p>{weatherSliceData?.temperature} C</p>
-          </div>
+          <p>
+            {weatherSliceData.description.charAt(0).toUpperCase() +
+              weatherSliceData.description.slice(1)}
+          </p>
+          <p>{weatherSliceData?.temperature} °C</p>
+        </div>
+        <div className={styles.map_border}>
           <Map />
         </div>
       </div>

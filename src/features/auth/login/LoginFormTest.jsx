@@ -7,6 +7,7 @@ import { auth } from "../firebase";
 import { loginUser } from "../userSlice";
 import { useDispatch } from "react-redux";
 import styles from "./LoginFormTest.module.css";
+import Logo from "../../../ui/logo/Logo";
 
 const schema = z.object({
   email: z.string().email(),
@@ -61,7 +62,7 @@ function LoginFormTest() {
 
   return (
     <form onSubmit={handleSubmit(handleLogin)} className={styles.login}>
-      <span>The Memories Book</span>
+      <Logo className="logo_landing_nav" />
 
       <input {...register("email")} type="text" placeholder="Email" />
       {errors.email && <div>{errors.email.message}</div>}

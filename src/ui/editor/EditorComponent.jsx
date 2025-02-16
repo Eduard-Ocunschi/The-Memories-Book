@@ -2,8 +2,8 @@ import ReactQuill, { Quill } from "react-quill";
 import QuillResizeImage from "quill-resize-image";
 import EditorToolbar, { modules, formats } from "./EditorToolbar";
 import "react-quill/dist/quill.snow.css";
-import "./styles.css";
 import { useState } from "react";
+import "./stylesEditor.css";
 
 Quill.register("modules/resize", QuillResizeImage);
 
@@ -24,7 +24,7 @@ export const EditorComponent = () => {
         placeholder={"Write something awesome..."}
         modules={{
           ...modules,
-          resize: {},
+          // resize: {},
         }}
         formats={[...formats, "image"]}
       />

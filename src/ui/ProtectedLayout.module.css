@@ -1,20 +1,18 @@
 .app {
   height: 100vh;
-  padding: 2.4rem;
+  width: 100vw;
   overscroll-behavior-y: none;
   display: flex;
   position: relative;
-  flex-direction: column;
+  flex-direction: row;
 
   .main {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    color: white;
+    width: 100%;
   }
 
   a {
     text-decoration: none;
-    color: white;
   }
 }

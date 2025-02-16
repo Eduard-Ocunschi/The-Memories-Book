@@ -11,6 +11,7 @@ import {
 } from "firebase/auth";
 import { loginUser } from "../userSlice";
 import styles from "./SignupPageTest.module.css";
+import Logo from "../../../ui/logo/Logo";
 
 const schema = z.object({
   email: z.string().email(),
@@ -29,6 +30,8 @@ function SignupPageTest() {
   } = useForm({
     defaultValues: {
       email: "",
+      username: "",
+      password: "",
     },
     resolver: zodResolver(schema),
   });
@@ -62,7 +65,7 @@ function SignupPageTest() {
 
   return (
     <form onSubmit={handleSubmit(handleSignup)} className={styles.signup}>
-      <span>The Memories Book</span>
+      <Logo className="logo_landing_nav" />
 
       <input
         {...register("email")}
@@ -75,7 +78,7 @@ function SignupPageTest() {
       <input
         {...register("username")}
         type="text"
-        aria-placeholder="User"
+        aria-placeholder="Username"
         placeholder="Username"
       />
 

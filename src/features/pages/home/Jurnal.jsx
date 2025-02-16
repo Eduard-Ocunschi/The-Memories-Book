@@ -1,17 +1,55 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getPageData } from "../../db/firestore";
 
 function Jurnal() {
-
-  const userData = useSelector(state => state.data.user);
-  console.log(userData.user.uid);
+  const [jurnal, setJurnal] = useState("");
+  const userData = useSelector((state) => state.data.user);
+  console.log(jurnal);
 
   useEffect(() => {
-    getPageData(userData.user.uid)
-  }, [userData])
+    const getData = async () => {
+      if (userData?.user?.uid)
+        try {
+          const pages = await getPageData(userData.user.uid);
+          setJurnal(pages);
+        } catch (error) {
+          console.error("Error fatching jurnal", error);
+        }
+    };
+    getData();
+  }, [userData]);
 
-  return <div>Jurnal</div>;
+  return (
+    <div>
+      <div>
+        {jurnal.length > 0 ? (
+          <ul>
+            {jurnal.map((entry) => (
+              <li key={entry.id}>
+                {entry.title} - {entry.place}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          ""
+        )}
+      </div>
+      {jurnal.length > 0 ? (
+        jurnal.map((entry, index) => (
+          <div key={index} className="ql-editor">
+            <h2>
+              {entry.title} - {entry.place}
+            </h2>
+            <p>{entry.date}</p>
+            <div dangerouslySetInnerHTML={{ __html: entry.poveste }} />
+          </div>
+        ))
+      ) : (
+        <p>No journal entries found.</p>
+      )}
+    </div>
+  );
 }
 
 export default Jurnal;

@@ -8,6 +8,8 @@ import Jurnal from "./features/pages/home/Jurnal";
 import CreateNewPage, {
   loader as weatherLoader,
 } from "./features/pages/create-new-page/CreateNewPage";
+import TestSidebar from "../src/ui/test_sidebar/TestSidebar";
+// import Sidebar from "./ui/sidebar/Sidebar";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +18,8 @@ const router = createBrowserRouter([
   },
   {
     path: "/placeholder",
-    element: <Home />,
+    element: <TestSidebar />,
+    // element: <Sidebar />,
   },
   {
     path: "/authenticate",

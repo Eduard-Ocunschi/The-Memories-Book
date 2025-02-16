@@ -1,0 +1,11 @@
+.logo_landing_nav {
+  font-size: 4rem;
+  font-family: "Oooh Baby";
+  font-weight: 900;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  color: var(--color-dark--1);
+  font-weight: 700;
+  text-align: center;
+  z-index: 10;
+}

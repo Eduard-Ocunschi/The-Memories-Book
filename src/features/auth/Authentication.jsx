@@ -2,6 +2,8 @@ import { useState } from "react";
 import "./Authentication.css";
 import LoginFormTest from "./login/LoginFormTest";
 import SignupPageTest from "./signup/SignupPageTest";
+import Lootie from "lottie-react";
+import animationData from "../../../public/img/GirlInTheRain.json";
 
 function Authentication() {
   const [active, setActive] = useState("login");
@@ -13,7 +15,7 @@ function Authentication() {
   return (
     <div className="authentication">
       <div className="auth__left">
-        <img src="https://images.pexels.com/photos/30507158/pexels-photo-30507158/free-photo-of-cozy-workspace-with-leather-notebook-and-laptop.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
+        <Lootie animationData={animationData} loop={true} />
       </div>
       <div className="auth__right">
         {active === "login" ? <LoginFormTest /> : <SignupPageTest />}
