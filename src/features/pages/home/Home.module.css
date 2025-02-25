@@ -1,0 +1,58 @@
+.page_container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  margin: 5rem;
+  gap: 8rem;
+
+  .btn_create_entry {
+    font-size: 2.4rem;
+    letter-spacing: 0.1rem;
+    padding: 1rem 2rem;
+    border: 2px solid var(--color-dark--1);
+    border-radius: 5px;
+    width: 220px;
+    text-align: center;
+    color: white;
+    background-color: var(--color-brand--5);
+  }
+  .btn_to_jurnal {
+    font-size: 2.4rem;
+    letter-spacing: 0.1rem;
+    padding: 1rem 2rem;
+    border: 2px solid var(--color-dark--1);
+
+    color: white;
+    background-color: #a9b5df;
+
+    border-radius: 5px;
+    width: 220px;
+    text-align: center;
+  }
+}
+
+/* Media Query */
+
+@media (max-width: 850px) {
+  .page_container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+  }
+}
+@media (max-width: 600px) {
+  .page_container {
+    margin: 5rem auto;
+  }
+ 
+}
+
+@media (max-width: 576px) {
+}
+
+@media (max-width: 450px) {
+  .page_container {
+    margin: 5rem auto 5rem 10rem;
+  }
+}
