@@ -8,10 +8,10 @@ A feature-rich journaling app that allows users to create, save, and manage jour
 ---
 
 ## **Technologies Used**
-- **Frontend**: React, JavaScript, CSS
-- **Backend**: Firebase Authentication, Firestore
-- **Other**: Google Maps API, Weather API (for real-time weather data)
-- **Libraries/Tools**: React-Leaflet (for map), React-Quill (for the rich text editor), React-Router-Dom (for the routes, togeder with the loader functionality) , React-Hook-Form (for the form implementation), Zod (form validation), CSS Modules
+- **Frontend**: React, JavaScript, CSS.
+- **Backend**: Firebase Authentication, Firestore.
+- **Other**: Google Maps API, Weather API (for real-time weather data).
+- **Libraries/Tools**: React-Leaflet (for map), React-Quill (for the rich text editor), React-Router-Dom (for the routes, togeder with the loader functionality) , React-Hook-Form (for the form implementation), Zod (form validation), CSS Modules.
 
 ---
 
