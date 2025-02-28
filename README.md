@@ -32,7 +32,7 @@ A feature-rich journaling app that allows users to create, save, and manage jour
 - **Journal Entries**: Create, read, and delete journal entries. Each entry is saved to Firestore.
 - **Rich Text Editor**: Write entries with bold, italic, and other rich text formatting. You can also add and resize images via URLs.
 - **Interactive Map**: Default location based on user’s geolocation. Click on the map to select a location and get real-time weather information for that area.
-- **Location Pins**: View journal entries with location pins on the map. Click on an entry pin to view or delete the entry.
+- **Location Pins**: View journal entries with location pins on the map. Click on an entry to view or delete the entry.
 - **Settings**: Update your username.
 - **Responsiveness**: Fully responsive design down to tablet size. Phone responsiveness is in progress.
 
