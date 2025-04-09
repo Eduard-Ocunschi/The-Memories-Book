@@ -58,22 +58,29 @@ function CreateNewPage() {
 }
 
 export async function loader() {
-  const geoLocation = await getGeoLocation();
+  let latitude, longitude;
 
-  if (!geoLocation?.coords) throw new Error("Failed to fatch location coords!");
+  try {
+    const geoLocation = await getGeoLocation();
+    latitude = geoLocation.coords.latitude;
+    longitude = geoLocation.coords.longitude;
 
-  const locationCity = await getLocationByCoords(
-    geoLocation.coords.latitude,
-    geoLocation.coords.longitude
-  );
+    // if (!geoLocation?.coords) throw new Error("Failed to fatch location coords!");
+  } catch (error) {
+    console.warn(
+      "Geolocation not allowed or failed. Falling back to Bologna.",
+      error
+    );
+    latitude = 44.4949;
+    longitude = 11.3426;
+  }
 
-  const weather = await getCurrentWeatherByLocation(
-    geoLocation.coords.latitude,
-    geoLocation.coords.longitude
-  );
+  const locationCity = await getLocationByCoords(latitude, longitude);
 
-  store.dispatch(setLatitude(geoLocation.coords.latitude));
-  store.dispatch(setLongitude(geoLocation.coords.longitude));
+  const weather = await getCurrentWeatherByLocation(latitude, longitude);
+
+  store.dispatch(setLatitude(latitude));
+  store.dispatch(setLongitude(longitude));
   store.dispatch(setCountry(locationCity.countryName));
   store.dispatch(setCity(locationCity.city));
   store.dispatch(setTemperature(weather.main.temp));

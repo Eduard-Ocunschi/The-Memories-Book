@@ -31,6 +31,7 @@ function PageForm() {
     register,
     handleSubmit,
     setValue,
+    reset,
     formState: { isSubmitting },
   } = useForm({
     defaultValues: {
@@ -64,6 +65,17 @@ function PageForm() {
         tiltNr: Math.floor(Math.random() * 4) + 1,
       });
       console.log(res);
+
+      reset({
+        title: "",
+        place: "",
+        date: "",
+        latitude: "",
+        longitude: "",
+        poveste: "",
+      });
+
+      setEditorContent("");
     } catch (error) {
       console.log(error);
     }
